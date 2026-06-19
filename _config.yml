@@ -1,0 +1,20 @@
+# GitHub Pages 설정 파일
+# F5 새로고침 프로젝트 웹사이트
+
+# 사이트 기본 정보
+title: F5 새로고침 프로젝트
+description: 충남대학교 ESG센터의 대표 사회공헌 브랜드
+
+# Jekyll 테마 없이 순수 HTML로 서빙
+theme: null
+
+# 파일 포함 설정 (언더스코어 파일 포함)
+include:
+  - _config.yml
+
+# 빌드에서 제외할 파일
+exclude:
+  - "*.md"
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
