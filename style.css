@@ -61,6 +61,51 @@ body {
   from { opacity: 0; transform: scale(0.8); }
   to   { opacity: 1; transform: scale(1); }
 }
+
+/* ─── HERO ORB ANIMATIONS ───────────── */
+@keyframes orbDrift1 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  30%      { transform: translate(40px,-30px) scale(1.12); }
+  70%      { transform: translate(-20px,25px) scale(0.9); }
+}
+@keyframes orbDrift2 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  40%      { transform: translate(-35px,40px) scale(1.08); }
+  75%      { transform: translate(25px,-20px) scale(0.95); }
+}
+@keyframes orbDrift3 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%      { transform: translate(20px,30px) scale(1.1); }
+}
+.hero-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(72px); pointer-events: none; z-index: 1;
+}
+.hero-orb-1 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(55,120,255,0.55), transparent 68%);
+  top: -160px; right: -60px;
+  animation: orbDrift1 13s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(127,236,180,0.28), transparent 65%);
+  bottom: -100px; left: -80px;
+  animation: orbDrift2 16s ease-in-out infinite;
+}
+.hero-orb-3 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(100,60,240,0.25), transparent 65%);
+  top: 25%; left: 28%;
+  animation: orbDrift3 11s ease-in-out infinite 2s;
+}
+.hero-orb-4 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(0,200,255,0.22), transparent 60%);
+  bottom: 15%; right: 15%;
+  animation: orbDrift1 19s ease-in-out infinite 4s reverse;
+}
+
 @keyframes heroFloat {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-8px); }
@@ -74,14 +119,19 @@ body {
   50%       { opacity: 0.6; }
 }
 
-/* 히어로 입장 애니메이션 */
-.hero-badge { animation: fadeInUp 0.5s ease 0.1s both; }
-.hero-content > h1 { animation: fadeInUp 0.6s ease 0.2s both; }
-.hero-sub  { animation: fadeInUp 0.6s ease 0.32s both; }
-.hero-sub-en { animation: fadeInUp 0.6s ease 0.42s both; }
-.hero-btns { animation: fadeInUp 0.6s ease 0.5s both; }
-.kv-bar    { animation: fadeInUp 0.7s ease 0.6s both; }
+/* 히어로 입장 애니메이션 — fill:none so elements are always visible */
+.hero-badge { animation: fadeInUp 0.5s ease; }
+.hero-content > h1 { animation: fadeInUp 0.65s ease 0.1s; }
+.hero-sub  { animation: fadeInUp 0.65s ease 0.18s; }
+.hero-sub-en { animation: fadeInUp 0.65s ease 0.26s; }
+.hero-btns { animation: fadeInUp 0.65s ease 0.32s; }
+.kv-bar    { animation: fadeInUp 0.7s ease 0.4s; }
 .hero-badge::before { animation: badgePulse 2s ease infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-badge, .hero-content > h1, .hero-sub, .hero-sub-en, .hero-btns, .kv-bar {
+    animation: none; opacity: 1; transform: none;
+  }
+}
 
 /* 스크롤 리빌 */
 .reveal {
@@ -156,7 +206,11 @@ body {
 /* ─── HERO ────────────────────────────── */
 .hero {
   padding-top: 68px;
-  background: linear-gradient(135deg, #0A1F5C 0%, #1B3A8C 45%, #2952C8 100%);
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(42,110,255,0.45) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 80%, rgba(127,236,180,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 60%, rgba(100,60,255,0.18) 0%, transparent 45%),
+    linear-gradient(135deg, #040D24 0%, #0B1C5E 30%, #1233A0 55%, #1A48C8 80%, #0D2B80 100%);
   position: relative; overflow: hidden;
   min-height: 100vh; display: flex; align-items: center;
 }
@@ -166,9 +220,9 @@ body {
   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 .hero-inner {
-  max-width: 1200px; margin: 0 auto; padding: 80px 24px;
+  width: 100%; max-width: 1200px; margin: 0 auto; padding: 80px 24px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
-  position: relative; z-index: 1;
+  position: relative; z-index: 2;
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
@@ -213,6 +267,41 @@ body {
 }
 .stat-num { font-size: 28px; font-weight: 800; color: #7FECB4; line-height: 1; }
 .stat-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+/* ─── PARTNER STRIP ─────────────────────── */
+.partner-strip {
+  background: linear-gradient(135deg, #0B1E6E 0%, #1433A8 40%, #2E8B57 100%);
+  padding: 20px 0; overflow: hidden; position: relative; z-index: 10;
+}
+.partner-strip-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
+}
+.ps-item {
+  display: flex; align-items: center; gap: 12px; flex: 1; min-width: 160px;
+}
+.ps-num {
+  font-size: 36px; font-weight: 900; color: #7FECB4;
+  line-height: 1; letter-spacing: -1px;
+}
+.ps-label {
+  font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.4;
+}
+.ps-label strong { display: block; color: #fff; font-size: 14px; margin-bottom: 2px; }
+.ps-links {
+  display: flex; gap: 10px; margin-left: auto;
+}
+.ps-links a {
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+  color: #fff; font-size: 13px; font-weight: 600; padding: 8px 16px;
+  border-radius: 20px; text-decoration: none; transition: all 0.25s;
+  white-space: nowrap;
+}
+.ps-links a:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+@media (max-width: 768px) {
+  .partner-strip-inner { gap: 20px; }
+  .ps-links { margin-left: 0; width: 100%; }
+}
 
 /* ─── SECTIONS ────────────────────────── */
 .section { padding: 100px 0; }
