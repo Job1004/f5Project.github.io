@@ -44,7 +44,7 @@
 
 /* 히어로 bg 이미지 */
 .hero-bg-img { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-.hero-bg-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.04; transform: scale(1.05); }
+.hero-bg-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.08; transform: scale(1.05); }
 .hero-inner { position: relative; z-index: 2; }
 
 /* 히어로 카드 큰 로고 */
@@ -100,7 +100,15 @@
         </div>
       </div>
       <a href="propose.html">💡 신규 제안</a>
-      <a href="partner.html" class="nav-cta">파트너 참여</a>
+      <div class="nav-dropdown">
+        <a href="partner.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:5px;">파트너 참여 <span style="font-size:9px;opacity:0.8;">▾</span></a>
+        <div class="nav-dropdown-menu" style="right:0;left:auto;min-width:190px;">
+          <a href="partner.html#esg-partners" style="font-weight:600;">🤝 CNU 동행 파트너</a>
+          <a href="partner.html#esg-council" style="font-weight:600;">🌿 ESG 상생협의회</a>
+          <div class="divider"></div>
+          <a href="partner.html">파트너 참여 신청</a>
+        </div>
+      </div>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="메뉴"><span></span><span></span><span></span></button>
   </div>
@@ -113,7 +121,7 @@
 <section class="hero">
   <!-- 배경 이미지 -->
   <div class="hero-bg-img">
-    <img src="campus.jpg" alt="충남대학교 캠퍼스" loading="eager">
+    <img src="campus.jpg" alt="충남대학교 캠퍼스" loading="eager" style="opacity:0.08;">
   </div>
   <!-- 애니메이션 오브 -->
   <div class="hero-orb hero-orb-1"></div>
@@ -168,7 +176,28 @@
       </div>
     </div>
   </div>
-</section>
+
+<!-- ══ 파트너 현황 스트립 ══════════════════════════════════ -->
+<div class="partner-strip">
+  <div class="partner-strip-inner">
+    <div class="ps-item">
+      <div class="ps-num">5</div>
+      <div class="ps-label"><strong>CNU 동행 파트너</strong>공공기관·기업</div>
+    </div>
+    <div class="ps-item">
+      <div class="ps-num">25</div>
+      <div class="ps-label"><strong>ESG 상생협의회</strong>회원사</div>
+    </div>
+    <div class="ps-item">
+      <div class="ps-num">30<span style="font-size:18px;">+</span></div>
+      <div class="ps-label"><strong>총 파트너 기관</strong>함께하는 그룹</div>
+    </div>
+    <div class="ps-links">
+      <a href="partner.html#esg-partners">동행 파트너 →</a>
+      <a href="partner.html#esg-council">상생협의회 →</a>
+    </div>
+  </div>
+</div>
 
 <!-- ══ 프로젝트 소개 ══════════════════════════════════════════════ -->
 <section class="section">

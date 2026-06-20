@@ -210,7 +210,15 @@ textarea.form-control { min-height:120px; resize:vertical; }
         </div>
       </div>
       <a href="propose.html" class="active">💡 신규 제안</a>
-      <a href="partner.html" class="nav-cta">파트너 참여</a>
+      <div class="nav-dropdown">
+        <a href="partner.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:5px;">파트너 참여 <span style="font-size:9px;opacity:0.8;">▾</span></a>
+        <div class="nav-dropdown-menu" style="right:0;left:auto;min-width:190px;">
+          <a href="partner.html#esg-partners" style="font-weight:600;">🤝 CNU 동행 파트너</a>
+          <a href="partner.html#esg-council" style="font-weight:600;">🌿 ESG 상생협의회</a>
+          <div class="divider"></div>
+          <a href="partner.html">파트너 참여 신청</a>
+        </div>
+      </div>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="메뉴"><span></span><span></span><span></span></button>
   </div>
