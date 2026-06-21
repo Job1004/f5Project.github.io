@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>프로젝트 소개 — F5 새로고침 프로젝트</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.org-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.org-card { background: var(--white); border-radius: var(--radius); padding: 28px 20px; text-align: center; box-shadow: var(--shadow); border: 1px solid rgba(27,58,140,0.06); transition: var(--transition); }
+.org-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.org-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+.org-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.org-card p { font-size: 12px; color: var(--gray-600); line-height: 1.6; }
+.axis-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 16px; overflow: hidden; }
+.axis-item { padding: 36px 28px; }
+.axis-a { background: rgba(27,58,140,0.06); }
+.axis-b { background: rgba(46,139,87,0.06); }
+.axis-c { background: rgba(26,107,138,0.06); }
+.axis-d { background: rgba(120,80,160,0.06); }
+.axis-num { font-size: 36px; font-weight: 900; margin-bottom: 8px; }
+.axis-a .axis-num { color: var(--navy); }
+.axis-b .axis-num { color: var(--green); }
+.axis-c .axis-num { color: #1A6B8A; }
+.axis-d .axis-num { color: #7850A0; }
+.axis-item h4 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.axis-item p { font-size: 13px; color: var(--gray-600); line-height: 1.7; }
+.value-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.value-card { text-align: center; padding: 32px 16px; }
+.value-num { font-size: 40px; font-weight: 900; color: var(--blue); margin-bottom: 8px; line-height: 1; }
+.value-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.value-card p { font-size: 12px; color: var(--gray-600); }
+@media (max-width: 768px) {
+  .org-grid { grid-template-columns: 1fr 1fr; }
+  .axis-wrap { grid-template-columns: 1fr; }
+  .value-cards { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 80 56" fill="none"><text x="0" y="44" font-family="Arial Black,sans-serif" font-size="52" font-weight="900" fill="#1B3A8C">F</text><text x="32" y="44" font-family="Arial Black,sans-serif" font-size="52" font-weight="900" fill="#3A7BD5">5</text></svg>
+      <div class="nav-logo-text"><strong>F5 새로고침 프로젝트</strong><span>충남대학교 ESG센터</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">홈</a>
+      <a href="about.html" class="active">프로젝트 소개</a>
+      <a href="esg.html">ESG 가치</a>
+      <a href="projects.html">세부 사업</a>
+      <div class="nav-dropdown">
+          <a href="partner.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:5px;">파트너 참여 <span style="font-size:9px;opacity:0.8;">▾</span></a>
+          <div class="nav-dropdown-menu" style="right:0;left:auto;min-width:190px;">
+            <a href="partner.html#esg-partners" style="font-weight:600;">🤝 CNU 동행 파트너</a>
+            <a href="partner.html#esg-council" style="font-weight:600;">🌿 ESG 상생협의회</a>
+            <div class="divider"></div>
+            <a href="partner.html">파트너 참여 신청</a>
+          </div>
+        </div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="메뉴"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- 페이지 히어로 -->
+<div class="page-hero">
+  <div class="container page-hero-content">
+    <p class="breadcrumb"><a href="index.html">홈</a> / 프로젝트 소개</p>
+    <h1>F5 새로고침 프로젝트란?</h1>
+    <p>What is the F5 Refresh Project?</p>
+  </div>
+</div>
+
+<!-- ══ F5의 의미 ══════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:center;">
+      <div style="text-align:center;">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:180px;height:180px;margin:0 auto;display:block;">
+          <circle cx="100" cy="100" r="92" fill="rgba(27,58,140,0.04)" stroke="rgba(27,58,140,0.1)" stroke-width="2"/>
+          <path d="M100 24 A76 76 0 1 1 36 152" stroke="#3A7BD5" stroke-width="10" stroke-linecap="round" fill="none"/>
+          <path d="M24 146 L36 163 L52 148" stroke="#3A7BD5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <text x="48" y="128" font-family="Arial Black,sans-serif" font-size="78" font-weight="900" fill="#1B3A8C">F</text>
+          <text x="108" y="128" font-family="Arial Black,sans-serif" font-size="78" font-weight="900" fill="#3A7BD5">5</text>
+          <path d="M148 170 h18 v-14 h5 l-14-14-14 14 h5v14z" fill="#2E8B57" opacity="0.7"/>
+        </svg>
+        <p style="font-size:13px;color:var(--gray-600);margin-top:16px;line-height:1.7;">컴퓨터의 새로고침 키처럼<br>소멸해가는 지역을 되살립니다</p>
+      </div>
+      <div>
+        <div class="section-label">ABOUT</div>
+        <h2 class="section-title">F5, 지역을 <em>새로고침</em>하다</h2>
+        <div class="highlight-box">
+          <p>컴퓨터 키보드의 <strong>F5 키</strong>는 화면을 새로 고칩니다.<br>
+          F5 새로고침 프로젝트는 이 상징처럼, 소멸 위기에 처한 지역을 새롭게 되살리는 것을 목표로 합니다.</p>
+        </div>
+        <p style="font-size:15px;color:var(--gray-600);line-height:1.8;margin-bottom:16px;">
+          F5 새로고침 프로젝트는 <strong style="color:var(--navy);">충남대학교 ESG센터</strong>가 주관하는 대표 사회공헌 브랜드입니다.
+          지방소멸 위기에 처한 지역에서 대학·기업·지자체·유관기관이 4축으로 협력하여 실질적인 변화를 만들어냅니다.
+        </p>
+        <p style="font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:24px;">
+          단순한 일회성 봉사가 아닌, ESG 기반의 지속 가능한 상생 거버넌스를 구축하여 지역 문제를 근본적으로 해결하고자 합니다.
+          주거환경 개선(Ⅰ), 빈집 재생 상생협력 공간 조성(Ⅱ), 찾아가는 의료봉사(Ⅲ)의 세 가지 세부 사업이 상호 연계하여 추진됩니다.
+        </p>
+        <p style="font-size:13px;color:var(--gray-600);line-height:1.7;">
+          <em style="font-style:normal;color:var(--blue);font-weight:600;">Named after the F5 refresh key</em>, this project breathes new life into communities at risk of extinction.
+          Chungnam National University's ESG Center orchestrates a four-party collaboration — local governments, the university, industry, and related organizations — to create sustainable, ESG-driven community renewal.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 핵심 가치 (4중 효과) ═══════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div class="section-label" style="justify-content:center;">CORE VALUES</div>
+      <h2 class="section-title">F5가 만드는 <em>4중 효과</em></h2>
+      <p class="section-sub" style="margin:0 auto;">하나의 사업으로 네 가지 사회적 가치를 동시에 실현합니다.</p>
+    </div>
+    <div class="value-cards">
+      <div class="value-card">
+        <div class="value-num">①</div>
+        <h4>지방소멸 대응</h4>
+        <p>빈집 정비 + 지역 유입인구(관계·생활·정주인구) 단계적 증가로 소멸 위기 지역에 새 활력</p>
+        <p style="font-size:11px;color:var(--gray-300);margin-top:8px;">Addressing Depopulation</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num" style="color:var(--green);">②</div>
+        <h4>기업 ESG 실현</h4>
+        <p>임직원 복지 향상으로 ESG 'S(사회)' 지표 직접 반영 + 세제 혜택(특례기부금)</p>
+        <p style="font-size:11px;color:var(--gray-300);margin-top:8px;">Corporate ESG Achievement</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num" style="color:#1A6B8A;">③</div>
+        <h4>대학 앵커(RISE) 성과</h4>
+        <p>지역기여 지표 향상 + 산학협력 실적. 교육부 앵커(RISE) 연계 사업으로 대학의 지역 허브 기능 강화</p>
+        <p style="font-size:11px;color:var(--gray-300);margin-top:8px;">University RISE Outcomes</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num" style="color:#7850A0;">④</div>
+        <h4>지역 일자리 창출</h4>
+        <p>청소·유지보수·체험가이드 등 지역 주민 24~38명 직접 고용 창출 효과</p>
+        <p style="font-size:11px;color:var(--gray-300);margin-top:8px;">Local Employment Creation</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 4축 협력 거버넌스 ════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">GOVERNANCE</div>
+    <h2 class="section-title">4축 협력 추진 체계</h2>
+    <p class="section-sub">지자체·대학·산업체·유관기관이 역할을 나누어 지속 가능한 거버넌스를 구축합니다.</p>
+    <div class="axis-wrap">
+      <div class="axis-item axis-a">
+        <div class="axis-num">①</div>
+        <h4>지방자치단체</h4>
+        <p>빈집 정보 제공, 인허가 처리, 지방소멸대응기금 매칭. 주민 수요 파악 및 현장 협의 허브 역할을 담당합니다.</p>
+        <div style="margin-top:16px;"><span class="chip chip-navy">인허가·기금</span><span class="chip chip-navy">현장 허브</span></div>
+      </div>
+      <div class="axis-item axis-b">
+        <div class="axis-num">②</div>
+        <h4>대학 (충남대학교)</h4>
+        <p>ESG센터·산학협력단·ESG상생협회(신설) 협력으로 사업 기획·운영·학생 현장실습·리빙랩 연구를 주도합니다.</p>
+        <div style="margin-top:16px;"><span class="chip chip-green">ESG센터</span><span class="chip chip-green">산학협력단</span><span class="chip chip-green">리빙랩</span></div>
+      </div>
+      <div class="axis-item axis-c">
+        <div class="axis-num">③</div>
+        <h4>산업체 (참여기업)</h4>
+        <p>중소기업 ESG 투자·임직원 이용. 자발적 기부금으로 상생협력 공간 조성에 참여하며 ESG 'S' 지표를 실현합니다.</p>
+        <div style="margin-top:16px;"><span class="chip chip-blue">ESG 투자</span><span class="chip chip-blue">임직원 복지</span></div>
+      </div>
+      <div class="axis-item axis-d">
+        <div class="axis-num">④</div>
+        <h4>유관기관</h4>
+        <p>공공기관 ESG기금 투자, 의료기관 봉사 참여. 정부의 앵커(RISE) 사업비 연계로 재원 구조를 다각화합니다.</p>
+        <div style="margin-top:16px;"><span class="chip chip-navy">공공기관 ESG기금</span><span class="chip chip-blue">의료기관</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 추진 주체 ══════════════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-label">ORGANIZATION</div>
+    <h2 class="section-title">추진 주체</h2>
+    <p class="section-sub">F5 새로고침 프로젝트를 이끄는 충남대학교 내 협력 조직입니다.</p>
+    <div class="org-grid">
+      <div class="org-card">
+        <span class="org-icon">🏛️</span>
+        <h4>충남대학교 ESG센터</h4>
+        <p>F5 프로젝트 총괄 기획·운영. ESG 상생 전략 수립 및 파트너 연계를 주도합니다.</p>
+      </div>
+      <div class="org-card">
+        <span class="org-icon">🔬</span>
+        <h4>산학협력단</h4>
+        <p>법적 사업 주체로서 빈집 매입·리모델링 구조 설계 및 현장실습 거점 운영을 담당합니다.</p>
+      </div>
+      <div class="org-card">
+        <span class="org-icon">🤝</span>
+        <h4>ESG상생협회 (신설)</h4>
+        <p>비영리재단법인으로 신설 예정. 자산 보유 및 지속 가능한 사업 운영 구조를 담당합니다.</p>
+      </div>
+      <div class="org-card">
+        <span class="org-icon">👨‍🎓</span>
+        <h4>학생·교수단</h4>
+        <p>현장실습·리빙랩 연구 참여. 지방소멸을 교재 삼아 실제 지역 문제를 연구하고 해결합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 추진 일정 ══════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+      <div>
+        <div class="section-label">TIMELINE</div>
+        <h2 class="section-title">추진 일정</h2>
+        <p class="section-sub" style="margin-bottom:40px;">Project Roadmap</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2023.07</div>
+            <h4>F5 새로고침 프로젝트 공식 발대식</h4>
+            <p>충남대학교 CNU홀에서 기업·기관 20여 곳 참석. 프로젝트 Ⅰ(주거환경 개선) 본격 출범.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2025</div>
+            <h4>프로젝트 Ⅰ 성과 정리 및 확산</h4>
+            <p>주거취약계층 정주환경 개선 사업 연간 성과 기록. 대전시·동구청·건설협회 협력 체계 강화.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2026.05</div>
+            <h4>프로젝트 Ⅱ 사업계획 확정</h4>
+            <p>지방소멸지역 빈집 재생 상생협력 공간 조성사업 계획서 확정. 파일럿 10채 추진 계획.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2026.07</div>
+            <h4>프로젝트 Ⅲ 의료봉사 시범 실시</h4>
+            <p>충남 인구감소 지역 1~2곳 시범 의료봉사. 보건소 사후연계(Referral) 구조 첫 적용.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2026.08~</div>
+            <h4>프로젝트 Ⅱ 법인 설립·MOU 체결</h4>
+            <p>ESG상생협회(신설) 법인 설립, 공공기관 및 참여 중소기업 MOU 체결, 대상지 선정.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2026.11</div>
+            <h4>파일럿 빈집 1~3채 매입·시범운영</h4>
+            <p>리모델링 완료 후 중소기업 임직원 상생협력 공간으로 시범 운영 개시.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2028~</div>
+            <h4>성과 평가 후 전국 확산</h4>
+            <p>충청권 모델을 표준화하여 5극3특 초광역 체계 내 전국 확산. 총 5개년 계획 완성.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">FUNDING</div>
+        <h2 class="section-title">재원 구성</h2>
+        <p style="font-size:14px;color:var(--gray-600);margin-bottom:24px;">프로젝트 Ⅱ 기준 (10채, 총 10억원)</p>
+        <!-- 도넛 차트 대신 바 형태로 -->
+        <div style="background:var(--gray-50);border-radius:var(--radius);padding:32px;">
+          <div style="margin-bottom:20px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="font-size:13px;font-weight:600;color:var(--text);">정부 지원 (지방소멸대응기금)</span><span style="font-size:13px;font-weight:700;color:var(--navy);">50%</span></div>
+            <div style="height:10px;background:var(--gray-100);border-radius:5px;"><div style="height:100%;width:50%;background:var(--navy);border-radius:5px;"></div></div>
+          </div>
+          <div style="margin-bottom:20px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="font-size:13px;font-weight:600;color:var(--text);">공공기관 ESG기금</span><span style="font-size:13px;font-weight:700;color:var(--blue);">20%</span></div>
+            <div style="height:10px;background:var(--gray-100);border-radius:5px;"><div style="height:100%;width:20%;background:var(--blue);border-radius:5px;"></div></div>
+          </div>
+          <div style="margin-bottom:20px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="font-size:13px;font-weight:600;color:var(--text);">참여기업 자발적 기부</span><span style="font-size:13px;font-weight:700;color:var(--green);">20%</span></div>
+            <div style="height:10px;background:var(--gray-100);border-radius:5px;"><div style="height:100%;width:20%;background:var(--green);border-radius:5px;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="font-size:13px;font-weight:600;color:var(--text);">대학 앵커(RISE)사업비</span><span style="font-size:13px;font-weight:700;color:#7850A0;">10%</span></div>
+            <div style="height:10px;background:var(--gray-100);border-radius:5px;"><div style="height:100%;width:10%;background:#7850A0;border-radius:5px;"></div></div>
+          </div>
+          <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--gray-100);">
+            <p style="font-size:13px;color:var(--gray-600);"><strong style="color:var(--navy);">총 사업비:</strong> 약 10억원 (10채 기준)<br>
+            참여기업 기부금은 <strong style="color:var(--green);">특례기부금</strong>으로 세제 혜택 적용 가능</p>
+          </div>
+        </div>
+        <div style="margin-top:32px;">
+          <a href="partner.html" class="btn btn-primary" style="width:100%;justify-content:center;">파트너로 참여하기 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="background:var(--navy);padding:64px 0;text-align:center;color:var(--white);">
+  <div class="container">
+    <p style="font-size:14px;opacity:0.6;margin-bottom:8px;">문의하기</p>
+    <h3 style="font-size:1.6rem;font-weight:800;margin-bottom:16px;">F5 프로젝트에 대해 더 알고 싶으신가요?</h3>
+    <p style="opacity:0.7;margin-bottom:28px;">충남대학교 ESG센터로 연락주시면 상세히 안내해 드립니다.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="mailto:esg@cnu.ac.kr" class="btn btn-white">✉ esg@cnu.ac.kr</a>
+      <a href="partner.html" class="btn btn-outline">파트너 참여 신청</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><svg viewBox="0 0 60 42" fill="none" style="height:28px;"><text x="0" y="33" font-family="Arial Black,sans-serif" font-size="40" font-weight="900" fill="#1B3A8C">F</text><text x="24" y="33" font-family="Arial Black,sans-serif" font-size="40" font-weight="900" fill="#3A7BD5">5</text></svg><span style="color:rgba(255,255,255,0.7);font-size:13px;font-weight:600;">F5 새로고침 프로젝트</span></div>
+      <p>충남대학교 ESG센터의 대표 사회공헌 브랜드. 지방소멸 위기 지역과 기업, 대학이 함께 만드는 지속 가능한 상생 모델입니다.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-group"><h4>사이트</h4><a href="index.html">홈</a><a href="about.html">프로젝트 소개</a><a href="esg.html">ESG 가치</a><a href="projects.html">세부 사업</a><a href="partner.html">파트너 참여</a></div>
+      <div class="footer-group"><h4>문의</h4><a href="tel:042-821-8649">📞 042-821-8649</a><a href="mailto:esg@cnu.ac.kr">✉ esg@cnu.ac.kr</a><a href="#">충남대학교 ESG센터</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 충남대학교 ESG센터 · F5 새로고침 프로젝트. All rights reserved.</p></div>
+</footer>
+
+<script>
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => links.classList.toggle('open'));
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').style.boxShadow = window.scrollY > 10 ? '0 4px 24px rgba(27,58,140,0.12)' : '';
+});
+</script>
+</body>
+</html>

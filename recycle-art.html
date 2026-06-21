@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>리사이클 아트캠퍼스 — F5 새로고침 프로젝트</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── 아트캠퍼스 전용 ── */
+:root {
+  --art: #8B2E7A;
+  --art-light: #C45AAC;
+  --art-pale: rgba(139,46,122,0.06);
+}
+.art-hero {
+  padding-top: 68px;
+  background: linear-gradient(135deg, #3A0A6E 0%, #6B1860 40%, #A8285C 75%, #C44830 100%);
+  padding-bottom: 80px; padding-top: calc(68px + 80px);
+  position: relative; overflow: hidden; color: var(--white);
+}
+.art-hero::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(255,200,100,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(100,180,255,0.08) 0%, transparent 50%);
+}
+.art-hero-inner {
+  max-width:1200px; margin:0 auto; padding:0 24px;
+  display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+  position:relative; z-index:1;
+}
+.art-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);
+  color:rgba(255,220,180,1); font-size:12px; font-weight:700; letter-spacing:0.08em;
+  padding:6px 16px; border-radius:24px; margin-bottom:20px; text-transform:uppercase;
+}
+.art-hero h1 { font-size:clamp(2rem,4vw,3.2rem); font-weight:900; line-height:1.15; margin-bottom:16px; letter-spacing:-0.02em; }
+.art-hero h1 em { font-style:normal; color:#FFD580; }
+.art-hero p { font-size:15px; opacity:0.8; line-height:1.8; margin-bottom:8px; }
+.art-hero .sub-en { font-size:12px; opacity:0.45; letter-spacing:0.03em; margin-bottom:36px; }
+.city-connect {
+  display:flex; align-items:center; gap:12px; margin-top:32px;
+  background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px; padding:20px 24px;
+}
+.city-dot { width:12px; height:12px; border-radius:50%; background:#FFD580; flex-shrink:0; }
+.city-line { flex:1; height:2px; background:linear-gradient(90deg,rgba(255,213,128,0.6),rgba(255,213,128,0.2)); }
+.city-name { font-size:13px; font-weight:700; color:rgba(255,255,255,0.9); text-align:center; }
+.city-name span { display:block; font-size:10px; font-weight:400; opacity:0.5; margin-top:2px; }
+.art-visual-card {
+  background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
+  border-radius:24px; padding:40px; backdrop-filter:blur(8px);
+}
+.art-visual-svg { display:block; margin:0 auto 24px; }
+.art-stat-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+.art-stat { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:16px; text-align:center; }
+.art-stat strong { display:block; font-size:24px; font-weight:800; color:#FFD580; }
+.art-stat span { font-size:11px; color:rgba(255,255,255,0.55); margin-top:2px; }
+
+/* 섹션 */
+.art-section { padding:80px 0; }
+.art-label { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; color:var(--art); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px; }
+.art-label::before { content:''; display:block; width:24px; height:2px; background:var(--art); }
+.art-title { font-size:clamp(1.6rem,3vw,2.4rem); font-weight:800; color:var(--text); margin-bottom:12px; line-height:1.3; }
+.art-title em { font-style:normal; color:var(--art); }
+
+/* 도시 연결 다이어그램 */
+.tri-cities {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;
+  position:relative; margin:48px 0;
+}
+.tri-cities::before {
+  content:''; position:absolute; top:50%; left:16.66%; right:16.66%;
+  height:2px; background:linear-gradient(90deg, var(--art-light), #FFD580, var(--art-light));
+  transform:translateY(-50%); z-index:0;
+}
+.city-card {
+  background:var(--white); border-radius:20px; padding:36px 24px; text-align:center;
+  box-shadow:var(--shadow-lg); border:2px solid rgba(139,46,122,0.12);
+  position:relative; z-index:1; transition:var(--transition);
+}
+.city-card:hover { transform:translateY(-6px); box-shadow:0 20px 60px rgba(139,46,122,0.18); }
+.city-card.center { border-color:var(--art); background:linear-gradient(160deg,#FFF5FD,white); }
+.city-icon { font-size:48px; margin-bottom:16px; display:block; }
+.city-card h3 { font-size:22px; font-weight:800; color:var(--text); margin-bottom:6px; }
+.city-card .city-en { font-size:11px; color:var(--gray-300); letter-spacing:0.05em; margin-bottom:16px; }
+.city-card p { font-size:13px; color:var(--gray-600); line-height:1.7; }
+.city-card .city-role { display:inline-block; margin-top:16px; padding:6px 14px; border-radius:20px; font-size:11px; font-weight:700; background:var(--art-pale); color:var(--art); }
+
+/* 아트캠퍼스 활용 */
+.campus-uses { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.campus-use-card {
+  border-radius:16px; padding:32px 24px; transition:var(--transition);
+  border:1px solid rgba(139,46,122,0.1); background:var(--white);
+  box-shadow:var(--shadow);
+}
+.campus-use-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.campus-use-icon { font-size:36px; margin-bottom:16px; }
+.campus-use-card h4 { font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px; }
+.campus-use-card h4 span { display:block; font-size:11px; color:var(--gray-300); font-weight:400; margin-top:2px; }
+.campus-use-card p { font-size:13px; color:var(--gray-600); line-height:1.7; }
+.use-tag { display:inline-block; margin-top:14px; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; background:var(--art-pale); color:var(--art); }
+
+/* 타임라인 확장 */
+.art-timeline { display:flex; flex-direction:column; gap:0; }
+.art-tl-item { display:flex; gap:28px; padding:24px 0; border-bottom:1px solid var(--gray-100); }
+.art-tl-item:last-child { border-bottom:none; }
+.art-tl-dot { width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,var(--art),var(--art-light)); color:white; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0; text-align:center; line-height:1.2; }
+.art-tl-date { font-size:12px; font-weight:700; color:var(--art); margin-bottom:4px; letter-spacing:0.05em; }
+.art-tl-item h4 { font-size:15px; font-weight:700; color:var(--text); margin-bottom:4px; }
+.art-tl-item p { font-size:13px; color:var(--gray-600); line-height:1.6; }
+
+/* ESG 매핑 */
+.art-esg { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; border-radius:16px; overflow:hidden; }
+.art-esg-block { padding:36px 28px; color:white; }
+.art-esg-e { background:linear-gradient(135deg,#2E4080,#4060C8); }
+.art-esg-s { background:linear-gradient(135deg,#7A1E6A,#B84090); }
+.art-esg-g { background:linear-gradient(135deg,#804020,#C06030); }
+.art-esg-block .letter { font-size:56px; font-weight:900; opacity:0.12; line-height:1; }
+.art-esg-block h4 { font-size:16px; font-weight:700; margin-bottom:8px; }
+.art-esg-block p { font-size:13px; opacity:0.8; line-height:1.7; }
+
+/* CTA 배너 */
+.art-cta { background:linear-gradient(135deg,#3A0A6E,#6B1860,#A8285C); padding:80px 0; text-align:center; color:white; }
+.art-cta h2 { font-size:2rem; font-weight:800; margin-bottom:12px; }
+.art-cta p { opacity:0.75; margin-bottom:32px; font-size:15px; }
+
+@media (max-width:768px) {
+  .art-hero-inner { grid-template-columns:1fr; }
+  .art-visual-card { display:none; }
+  .city-connect { flex-wrap:wrap; justify-content:center; }
+  .tri-cities { grid-template-columns:1fr; }
+  .tri-cities::before { display:none; }
+  .campus-uses { grid-template-columns:1fr; }
+  .art-esg { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 80 56" fill="none"><text x="0" y="44" font-family="Arial Black,sans-serif" font-size="52" font-weight="900" fill="#1B3A8C">F</text><text x="32" y="44" font-family="Arial Black,sans-serif" font-size="52" font-weight="900" fill="#3A7BD5">5</text></svg>
+      <div class="nav-logo-text"><strong>F5 새로고침 프로젝트</strong><span>충남대학교 ESG센터</span></div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">홈</a>
+      <a href="about.html">프로젝트 소개</a>
+      <a href="esg.html">ESG 가치</a>
+      <div class="nav-dropdown">
+        <a href="projects.html" class="active">세부 사업</a>
+        <div class="nav-dropdown-menu">
+          <a href="projects.html">프로젝트 Ⅰ·Ⅱ·Ⅲ</a>
+          <div class="divider"></div>
+          <a href="recycle-art.html" class="active">🎨 리사이클 아트캠퍼스</a>
+        </div>
+      </div>
+      <a href="propose.html">💡 신규 제안</a>
+      <div class="nav-dropdown">
+          <a href="partner.html" class="nav-cta" style="display:inline-flex;align-items:center;gap:5px;">파트너 참여 <span style="font-size:9px;opacity:0.8;">▾</span></a>
+          <div class="nav-dropdown-menu" style="right:0;left:auto;min-width:190px;">
+            <a href="partner.html#esg-partners" style="font-weight:600;">🤝 CNU 동행 파트너</a>
+            <a href="partner.html#esg-council" style="font-weight:600;">🌿 ESG 상생협의회</a>
+            <div class="divider"></div>
+            <a href="partner.html">파트너 참여 신청</a>
+          </div>
+        </div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="메뉴"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ══ 아트캠퍼스 히어로 ════════════════════════════════════════════ -->
+<section class="art-hero">
+  <div class="art-hero-inner">
+    <div>
+      <div class="art-badge">🎨 F5 대표모델 · Flagship Project</div>
+      <h1>리사이클 <em>아트캠퍼스</em><br>Recycle Art Campus</h1>
+      <p>유휴 공간을 예술·문화로 재탄생시켜 대전·충남·세종을 잇는<br>초광역 문화예술 상생 거점을 만들어 갑니다.</p>
+      <p class="sub-en">Transforming idle spaces into art & culture hubs that connect Daejeon · Chungnam · Sejong</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;">
+        <a href="partner.html" class="btn btn-white" style="background:rgba(255,255,255,0.15);color:white;border:1.5px solid rgba(255,255,255,0.3);">파트너 참여 신청</a>
+        <a href="propose.html" class="btn" style="background:rgba(255,213,128,0.2);color:#FFD580;border:1.5px solid rgba(255,213,128,0.3);">💡 프로젝트 제안하기</a>
+      </div>
+      <!-- 3개 도시 연결 -->
+      <div class="city-connect">
+        <div class="city-dot"></div>
+        <div style="text-align:center;">
+          <div class="city-name">대전광역시<span>Daejeon</span></div>
+        </div>
+        <div class="city-line"></div>
+        <div style="text-align:center;">
+          <div class="city-name">충남대학교<span>CNU · ESG센터</span></div>
+        </div>
+        <div class="city-line"></div>
+        <div style="text-align:center;">
+          <div class="city-name">충청남도<span>Chungnam</span></div>
+        </div>
+        <div class="city-line"></div>
+        <div style="text-align:center;">
+          <div class="city-name">세종특별자치시<span>Sejong</span></div>
+        </div>
+        <div class="city-dot"></div>
+      </div>
+    </div>
+    <div class="art-visual-card">
+      <!-- 아트캠퍼스 시각화 SVG -->
+      <svg class="art-visual-svg" viewBox="0 0 280 240" fill="none" xmlns="http://www.w3.org/2000/svg" width="280" height="240">
+        <!-- 배경 건물들 -->
+        <rect x="20" y="100" width="60" height="100" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+        <rect x="30" y="80" width="40" height="20" rx="3" fill="rgba(255,213,128,0.2)" stroke="rgba(255,213,128,0.4)" stroke-width="1"/>
+        <!-- 메인 캠퍼스 -->
+        <rect x="90" y="60" width="100" height="140" rx="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,213,128,0.5)" stroke-width="2"/>
+        <!-- 창문들 (예술적 패턴) -->
+        <rect x="100" y="72" width="20" height="20" rx="3" fill="rgba(255,180,80,0.3)"/>
+        <rect x="126" y="72" width="20" height="20" rx="3" fill="rgba(140,80,200,0.3)"/>
+        <rect x="152" y="72" width="28" height="20" rx="3" fill="rgba(80,180,255,0.3)"/>
+        <rect x="100" y="98" width="28" height="20" rx="3" fill="rgba(80,255,160,0.3)"/>
+        <rect x="134" y="98" width="46" height="20" rx="3" fill="rgba(255,120,80,0.3)"/>
+        <rect x="100" y="124" width="80" height="30" rx="3" fill="rgba(255,213,128,0.15)" stroke="rgba(255,213,128,0.3)" stroke-width="1"/>
+        <text x="140" y="144" text-anchor="middle" font-size="10" fill="rgba(255,213,128,0.8)" font-weight="700">ART CAMPUS</text>
+        <!-- 입구 -->
+        <rect x="126" y="160" width="28" height="40" rx="14" fill="rgba(255,213,128,0.2)" stroke="rgba(255,213,128,0.5)" stroke-width="1.5"/>
+        <!-- 오른쪽 건물 -->
+        <rect x="200" y="120" width="60" height="80" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+        <rect x="210" y="100" width="40" height="20" rx="3" fill="rgba(140,80,200,0.2)" stroke="rgba(140,80,200,0.3)" stroke-width="1"/>
+        <!-- 연결선 -->
+        <line x1="80" y1="150" x2="90" y2="150" stroke="rgba(255,213,128,0.4)" stroke-width="2" stroke-dasharray="4,3"/>
+        <line x1="190" y1="150" x2="200" y2="150" stroke="rgba(255,213,128,0.4)" stroke-width="2" stroke-dasharray="4,3"/>
+        <!-- 별·예술 요소 -->
+        <circle cx="52" cy="50" r="4" fill="#FFD580" opacity="0.6"/>
+        <circle cx="228" cy="70" r="3" fill="#C45AAC" opacity="0.7"/>
+        <circle cx="160" cy="30" r="2.5" fill="#80C0FF" opacity="0.6"/>
+        <!-- 화살표 순환 -->
+        <path d="M140 20 A110 110 0 0 1 250 150" stroke="rgba(255,213,128,0.3)" stroke-width="1.5" stroke-dasharray="6,4" fill="none"/>
+      </svg>
+      <p style="text-align:center;font-size:13px;color:rgba(255,255,255,0.7);font-weight:600;margin-bottom:4px;">유휴 공간 → 문화예술 거점</p>
+      <p style="text-align:center;font-size:11px;color:rgba(255,255,255,0.35);">Idle Space → Art & Culture Hub</p>
+      <div class="art-stat-row" style="margin-top:20px;">
+        <div class="art-stat"><strong>3</strong><span>연계 도시</span></div>
+        <div class="art-stat"><strong>대표</strong><span>F5 모델</span></div>
+        <div class="art-stat"><strong>∞</strong><span>확장 가능</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 개요 ════════════════════════════════════════════════════════ -->
+<section class="art-section" style="background:var(--white);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+      <div>
+        <div class="art-label">WHAT IS IT</div>
+        <h2 class="art-title">리사이클 아트캠퍼스란?<br><em>F5의 대표 확산 모델</em></h2>
+        <div style="background:var(--art-pale);border-left:4px solid var(--art);border-radius:8px;padding:20px 24px;margin:20px 0;">
+          <p style="font-size:14px;color:var(--text);line-height:1.8;">
+            <strong style="color:var(--art);">Recycle(재생) + Art(예술) + Campus(공간)</strong><br>
+            방치되거나 노후화된 건물·공간을 예술적으로 되살려, 지역 주민과 예술가, 기업이 함께 사용하는 복합 문화공간으로 재탄생시키는 F5의 대표 확산 모델입니다.
+          </p>
+        </div>
+        <p style="font-size:15px;color:var(--gray-600);line-height:1.8;margin-bottom:16px;">
+          기존 F5 프로젝트 Ⅱ(빈집 재생)가 주거·복지 공간에 집중했다면, 리사이클 아트캠퍼스는 그 개념을 <strong>문화예술</strong>로 확장합니다. 빈 건물·폐공장·유휴 부지를 예술가의 창작 스튜디오, 시민 문화공간, 청년 창업 거점으로 전환하여 <strong>대전·충남·세종 메가시티권</strong>을 잇는 문화 인프라로 성장시킵니다.
+        </p>
+        <p style="font-size:14px;color:var(--gray-600);line-height:1.8;">
+          <em style="font-style:normal;color:var(--art);font-weight:600;">Going beyond vacant house renovation</em>, the Recycle Art Campus model transforms idle buildings into vibrant cultural hubs — studios, galleries, maker spaces, and cultural venues — connecting the Daejeon–Chungnam–Sejong metropolitan region through art and creativity.
+        </p>
+      </div>
+      <div>
+        <div style="background:linear-gradient(160deg,#FFF5FD,#F8F0FF);border-radius:20px;padding:40px;border:1px solid rgba(139,46,122,0.12);">
+          <h4 style="font-size:15px;font-weight:700;color:var(--art);margin-bottom:24px;">🔑 리사이클 아트캠퍼스 = F5 대표모델인 이유</h4>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:36px;height:36px;background:var(--art);border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">①</div>
+              <div>
+                <h5 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">F5 철학의 완전한 구현</h5>
+                <p style="font-size:13px;color:var(--gray-600);">빈 공간을 '새로고침'하는 F5 정신을 가장 가시적·예술적으로 표현하는 모델</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:36px;height:36px;background:var(--art-light);border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">②</div>
+              <div>
+                <h5 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">3개 지자체 초광역 협력</h5>
+                <p style="font-size:13px;color:var(--gray-600);">대전·충남·세종을 잇는 광역 문화 거버넌스 구축. 단일 지역 한계를 초월</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:36px;height:36px;background:#C05080;border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">③</div>
+              <div>
+                <h5 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">ESG E·S·G 전 영역 동시 달성</h5>
+                <p style="font-size:13px;color:var(--gray-600);">환경(건물 재생)·사회(문화 접근성)·거버넌스(협력 체계)를 하나의 모델로 통합</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:36px;height:36px;background:#804060;border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">④</div>
+              <div>
+                <h5 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">전국 확산 가능한 표준 모델</h5>
+                <p style="font-size:13px;color:var(--gray-600);">충청권 선도 → 5극3특 초광역 전국 확산을 위한 표준 템플릿으로 설계</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3개 도시 연결 ════════════════════════════════════════════════ -->
+<section class="art-section" style="background:var(--gray-50);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:16px;">
+      <div class="art-label" style="justify-content:center;">TRI-CITY CONNECTION</div>
+      <h2 class="art-title" style="text-align:center;">대전 · 충남 · 세종을 잇는<br><em>초광역 문화예술 거버넌스</em></h2>
+      <p style="font-size:14px;color:var(--gray-600);max-width:560px;margin:0 auto;">세 도시가 각자의 강점을 연결하여 충청권 전체를 하나의 문화예술 플랫폼으로 엮습니다.</p>
+    </div>
+    <div class="tri-cities">
+      <div class="city-card">
+        <span class="city-icon">🏙️</span>
+        <h3>대전광역시</h3>
+        <div class="city-en">DAEJEON</div>
+        <p>충남대학교 ESG센터 거점. 과학·대학 도시의 인프라와 행정 역량을 결합하여 아트캠퍼스 사업의 핵심 허브 역할을 담당합니다.</p>
+        <div>
+          <span class="city-role">🏛️ 사업 총괄 허브</span>
+        </div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">
+          <span class="chip chip-navy" style="font-size:11px;">충남대학교</span>
+          <span class="chip chip-navy" style="font-size:11px;">산학협력단</span>
+          <span class="chip chip-navy" style="font-size:11px;">ESG센터</span>
+        </div>
+      </div>
+      <div class="city-card center">
+        <span class="city-icon">🎨</span>
+        <h3>리사이클<br>아트캠퍼스</h3>
+        <div class="city-en">RECYCLE ART CAMPUS</div>
+        <p>세 도시를 연결하는 공유 문화플랫폼. 각 도시의 유휴 공간을 네트워크화하여 예술가·시민·기업이 함께 사용하는 복합 공간으로 운영합니다.</p>
+        <div>
+          <span class="city-role" style="background:rgba(139,46,122,0.12);color:var(--art);">🌐 초광역 연결 플랫폼</span>
+        </div>
+      </div>
+      <div class="city-card">
+        <span class="city-icon">🌿</span>
+        <h3>충청남도 +<br>세종특별자치시</h3>
+        <div class="city-en">CHUNGNAM + SEJONG</div>
+        <p>인구감소 지역의 유휴 공간 제공 및 지자체 행정 지원. 세종의 행정 기능과 충남의 자연·농촌 자원을 아트캠퍼스 콘텐츠로 연계합니다.</p>
+        <div>
+          <span class="city-role">📍 공간·자원 연계</span>
+        </div>
+        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">
+          <span class="chip chip-green" style="font-size:11px;">인구감소지역 공간</span>
+          <span class="chip chip-green" style="font-size:11px;">지자체 지원</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 캠퍼스 활용 프로그램 ═════════════════════════════════════════ -->
+<section class="art-section">
+  <div class="container">
+    <div class="art-label">PROGRAMS</div>
+    <h2 class="art-title">리사이클 아트캠퍼스<br><em>6대 활용 프로그램</em></h2>
+    <p style="font-size:14px;color:var(--gray-600);margin-bottom:40px;max-width:560px;">재생된 공간에서 예술·교육·산업이 어우러지는 다양한 프로그램을 운영합니다.</p>
+    <div class="campus-uses">
+      <div class="campus-use-card">
+        <div class="campus-use-icon">🖼️</div>
+        <h4>리사이클 아트 갤러리
+          <span>Recycle Art Gallery</span>
+        </h4>
+        <p>버려진 폐자재·유휴 공간을 소재로 한 환경미술 전시. 지역 예술가와 기업이 공동 제작하는 ESG 아트 콘텐츠를 상설 전시합니다.</p>
+        <span class="use-tag">🎨 ESG 아트 전시</span>
+      </div>
+      <div class="campus-use-card">
+        <div class="campus-use-icon">🏗️</div>
+        <h4>크리에이터 스튜디오
+          <span>Creator Studio & Maker Space</span>
+        </h4>
+        <p>청년 예술가·창작자를 위한 작업 공간. 3D 프린팅·공예·영상 제작 등 메이커 스페이스 기능을 통합하여 창작 생태계를 지원합니다.</p>
+        <span class="use-tag">✨ 청년 창작 지원</span>
+      </div>
+      <div class="campus-use-card">
+        <div class="campus-use-icon">🎓</div>
+        <h4>대학 현장실습 연계
+          <span>University Field Practice Hub</span>
+        </h4>
+        <p>충남대 건축·디자인·사회학·경제학 등 다학과 학생이 아트캠퍼스를 리빙랩으로 활용. 실제 공간 기획·운영 프로젝트로 현장 교육.</p>
+        <span class="use-tag">🎓 산학 연계</span>
+      </div>
+      <div class="campus-use-card">
+        <div class="campus-use-icon">🏢</div>
+        <h4>기업 ESG 체험 프로그램
+          <span>Corporate ESG Experience</span>
+        </h4>
+        <p>기업 임직원 대상 ESG 교육·팀빌딩·리사이클링 아트 체험 워크숍. 기업의 사회공헌 활동을 아트캠퍼스와 연계하여 차별화된 ESG 콘텐츠 제공.</p>
+        <span class="use-tag">🏢 기업 ESG 연계</span>
+      </div>
+      <div class="campus-use-card">
+        <div class="campus-use-icon">🌾</div>
+        <h4>로컬 문화 축제 & 마켓
+          <span>Local Culture Festival & Market</span>
+        </h4>
+        <p>대전·충남·세종 지역 예술가, 농산물, 공예품이 어우러지는 정기 마켓·축제 개최. 체류형 관광객 유입 및 지역 경제 활성화.</p>
+        <span class="use-tag">🌍 지역 활성화</span>
+      </div>
+      <div class="campus-use-card">
+        <div class="campus-use-icon">💡</div>
+        <h4>사회혁신 인큐베이터
+          <span>Social Innovation Incubator</span>
+        </h4>
+        <p>지역 문제를 예술·디자인·기술로 해결하는 사회혁신 스타트업 발굴·육성. 충남대 창업지원단 연계로 ESG 창업 생태계를 조성합니다.</p>
+        <span class="use-tag">🚀 ESG 창업 지원</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ESG 매핑 ═══════════════════════════════════════════════════ -->
+<section class="art-section" style="background:var(--gray-50);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div class="art-label" style="justify-content:center;">ESG MAPPING</div>
+      <h2 class="art-title" style="text-align:center;">리사이클 아트캠퍼스의 <em>ESG 가치</em></h2>
+    </div>
+    <div class="art-esg">
+      <div class="art-esg-block art-esg-e">
+        <div class="letter">E</div>
+        <h4>Environment</h4>
+        <p>노후·유휴 건물을 친환경으로 재생하여 도시 탄소 감축. 리사이클링 소재 활용 예술 창작으로 자원 순환 문화 확산. 버려지는 공간에 생명을 불어넣는 그린 리노베이션.</p>
+      </div>
+      <div class="art-esg-block art-esg-s">
+        <div class="letter">S</div>
+        <h4>Social</h4>
+        <p>청년 예술가 창작 공간 제공, 지역 주민 문화 접근성 향상. 기업 임직원 문화·예술 복지 프로그램. 지역 소외계층 대상 예술 치유·교육 프로그램 운영.</p>
+      </div>
+      <div class="art-esg-block art-esg-g">
+        <div class="letter">G</div>
+        <h4>Governance</h4>
+        <p>대전·충남·세종 3개 지자체 + 충남대학교 + 참여기업의 다층 거버넌스. 투명한 운영위원회 구성 및 성과 공개. 앵커(RISE) 지역기여 지표 직접 연계.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 추진 일정 ══════════════════════════════════════════════════ -->
+<section class="art-section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;">
+      <div>
+        <div class="art-label">ROADMAP</div>
+        <h2 class="art-title">추진 로드맵</h2>
+        <p style="font-size:14px;color:var(--gray-600);margin-bottom:32px;">단계적 확산을 통해 충청권 대표 문화예술 플랫폼으로 성장합니다.</p>
+        <div class="art-timeline">
+          <div class="art-tl-item">
+            <div class="art-tl-dot">1단계</div>
+            <div>
+              <div class="art-tl-date">2026 하반기</div>
+              <h4>파일럿 공간 선정 및 리모델링</h4>
+              <p>대전·충남·세종 내 유휴 공간 1~2곳 선정. 리사이클링 아트 컨셉 리모델링 착수. 운영위원회 구성 및 MOU 체결.</p>
+            </div>
+          </div>
+          <div class="art-tl-item">
+            <div class="art-tl-dot">2단계</div>
+            <div>
+              <div class="art-tl-date">2027</div>
+              <h4>아트캠퍼스 정식 오픈 및 프로그램 운영</h4>
+              <p>갤러리·스튜디오·메이커스페이스 운영 개시. 기업 ESG 체험 프로그램·대학 현장실습 연계. 첫 번째 로컬 문화 마켓 개최.</p>
+            </div>
+          </div>
+          <div class="art-tl-item">
+            <div class="art-tl-dot">3단계</div>
+            <div>
+              <div class="art-tl-date">2028~</div>
+              <h4>3개 도시 네트워크 완성 및 전국 확산</h4>
+              <p>대전·충남·세종 아트캠퍼스 네트워크 연결. 충청권 모델 표준화 → 5극3특 전국 확산 모델로 제안.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="art-label">PARTNERS NEEDED</div>
+        <h2 class="art-title">이런 파트너를<br><em>찾습니다</em></h2>
+        <p style="font-size:14px;color:var(--gray-600);margin-bottom:24px;">리사이클 아트캠퍼스와 함께할 다양한 파트너를 모십니다.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;gap:14px;padding:18px;background:var(--gray-50);border-radius:12px;border:1px solid var(--gray-100);">
+            <span style="font-size:24px;">🏢</span>
+            <div><h5 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;">ESG 투자 기업</h5><p style="font-size:12px;color:var(--gray-600);">리모델링 비용 지원, 임직원 ESG 체험 프로그램 활용. ESG 보고서 'S' 지표 반영</p></div>
+          </div>
+          <div style="display:flex;gap:14px;padding:18px;background:var(--gray-50);border-radius:12px;border:1px solid var(--gray-100);">
+            <span style="font-size:24px;">🎨</span>
+            <div><h5 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;">예술가·창작자·문화단체</h5><p style="font-size:12px;color:var(--gray-600);">입주 스튜디오 제공, 전시 기회 지원. 지역 문화 생태계 구성원으로 참여</p></div>
+          </div>
+          <div style="display:flex;gap:14px;padding:18px;background:var(--gray-50);border-radius:12px;border:1px solid var(--gray-100);">
+            <span style="font-size:24px;">🏛️</span>
+            <div><h5 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;">지방자치단체</h5><p style="font-size:12px;color:var(--gray-600);">유휴 건물·부지 제공, 인허가 지원. 지역균형발전 및 문화도시 지표 연계</p></div>
+          </div>
+          <div style="display:flex;gap:14px;padding:18px;background:var(--gray-50);border-radius:12px;border:1px solid var(--gray-100);">
+            <span style="font-size:24px;">🌱</span>
+            <div><h5 style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;">건축·인테리어·시공사</h5><p style="font-size:12px;color:var(--gray-600);">친환경 리모델링 기술 제공, 리사이클 소재 공급. ESG 건축 포트폴리오 확보</p></div>
+          </div>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="partner.html" class="btn btn-primary">파트너 참여 신청</a>
+          <a href="propose.html" class="btn" style="background:var(--art-pale);color:var(--art);border:1.5px solid rgba(139,46,122,0.2);">💡 아이디어 제안</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ═══════════════════════════════════════════════════════ -->
+<div class="art-cta">
+  <div class="container">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);padding:6px 16px;border-radius:24px;font-size:12px;margin-bottom:20px;color:rgba(255,220,180,1);font-weight:600;letter-spacing:0.05em;">
+      🎨 FLAGSHIP PROJECT · 대표 확산 모델
+    </div>
+    <h2>리사이클 아트캠퍼스와 함께<br>지역을 예술로 새로고침하세요</h2>
+    <p>대전·충남·세종을 잇는 문화예술 플랫폼의 첫 번째 파트너가 되어주세요.<br>
+    <em style="font-style:normal;font-size:13px;opacity:0.5;">Become a founding partner of the Daejeon–Chungnam–Sejong cultural arts platform.</em>
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="partner.html" class="btn btn-white">파트너 참여 신청</a>
+      <a href="propose.html" class="btn btn-outline">💡 아이디어·프로젝트 제안</a>
+      <a href="mailto:esg@cnu.ac.kr" class="btn btn-outline">✉ 문의하기</a>
+    </div>
+    <div style="margin-top:40px;display:flex;justify-content:center;gap:40px;flex-wrap:wrap;">
+      <div style="text-align:center;opacity:0.7;"><div style="font-size:11px;margin-bottom:4px;letter-spacing:0.05em;">CONTACT</div><div style="font-size:14px;font-weight:600;">042-821-8649</div></div>
+      <div style="text-align:center;opacity:0.7;"><div style="font-size:11px;margin-bottom:4px;letter-spacing:0.05em;">EMAIL</div><div style="font-size:14px;font-weight:600;">esg@cnu.ac.kr</div></div>
+      <div style="text-align:center;opacity:0.7;"><div style="font-size:11px;margin-bottom:4px;letter-spacing:0.05em;">ORGANIZED BY</div><div style="font-size:14px;font-weight:600;">충남대학교 ESG센터</div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;"><svg viewBox="0 0 60 42" fill="none" style="height:28px;"><text x="0" y="33" font-family="Arial Black,sans-serif" font-size="40" font-weight="900" fill="#1B3A8C">F</text><text x="24" y="33" font-family="Arial Black,sans-serif" font-size="40" font-weight="900" fill="#3A7BD5">5</text></svg><span style="color:rgba(255,255,255,0.7);font-size:13px;font-weight:600;">F5 새로고침 프로젝트</span></div>
+      <p>충남대학교 ESG센터의 대표 사회공헌 브랜드. 지방소멸 위기 지역과 기업, 대학이 함께 만드는 지속 가능한 상생 모델입니다.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-group"><h4>사이트</h4><a href="index.html">홈</a><a href="about.html">프로젝트 소개</a><a href="esg.html">ESG 가치</a><a href="projects.html">세부 사업</a><a href="recycle-art.html">리사이클 아트캠퍼스</a><a href="propose.html">신규 제안</a><a href="partner.html">파트너 참여</a></div>
+      <div class="footer-group"><h4>문의</h4><a href="tel:042-821-8649">📞 042-821-8649</a><a href="mailto:esg@cnu.ac.kr">✉ esg@cnu.ac.kr</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 충남대학교 ESG센터 · F5 새로고침 프로젝트. All rights reserved.</p></div>
+</footer>
+
+<script>
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => links.classList.toggle('open'));
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').style.boxShadow = window.scrollY > 10 ? '0 4px 24px rgba(27,58,140,0.12)' : '';
+});
+</script>
+</body>
+</html>
