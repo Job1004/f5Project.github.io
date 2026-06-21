@@ -76,7 +76,7 @@ body {
 /* ─── HERO ────────────────────────────── */
 .hero {
   padding-top: 68px;
-  background: linear-gradient(135deg, rgba(10,31,92,0.92) 0%, rgba(27,58,140,0.88) 45%, rgba(41,82,200,0.85) 100%), url(cnu-horse.jpg.jpg) center/cover no-repeat; background-color: #0A1F5C;
+  background: linear-gradient(135deg, rgba(10,31,92,0.92) 0%, rgba(27,58,140,0.88) 45%, rgba(41,82,200,0.85) 100%), url(cnu-horse.jpg) center/cover no-repeat; background-color: #0A1F5C;
   position: relative; overflow: hidden;
   min-height: 100vh; display: flex; align-items: center;
 }
