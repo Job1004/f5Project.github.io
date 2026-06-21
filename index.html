@@ -99,20 +99,23 @@
     </div>
     <div class="hero-visual">
       <div class="hero-card">
-        <!-- F5 로고 (공식 로고 스타일: 그린+블루 원형 화살표) -->
+        <!-- F5 로고 (실제 로고 재현: 블루→그린 그라디언트 아크) -->
         <div class="hero-logo-wrap">
-          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:156px;height:156px;margin:0 auto;display:block;">
-            <!-- 그린 아크 (270°): 오른쪽 아래→하단→왼쪽→상단 (CW) -->
-            <path d="M 170.9 112.5 A 72 72 0 1 1 112.5 29.1"
-                  stroke="#7FECB4" stroke-width="23" stroke-linecap="butt" fill="none"/>
-            <!-- 블루 아크 (90°): 상단→오른쪽 위→오른쪽 (CW) -->
-            <path d="M 112.5 29.1 A 72 72 0 0 1 170.9 112.5"
-                  stroke="#5BA4F5" stroke-width="23" stroke-linecap="butt" fill="none"/>
-            <!-- 화살표 (그린 아크 끝, 오른쪽+약간 아래 방향) -->
-            <polygon points="112.5,29.1 89.1,35.1 92.5,15.4" fill="#7FECB4"/>
-            <!-- F: 그린, 5: 블루 -->
-            <text x="48" y="118" font-family="Arial Black,sans-serif" font-size="62" font-weight="900" fill="white">F</text>
-            <text x="101" y="118" font-family="Arial Black,sans-serif" font-size="62" font-weight="900" fill="#7FECB4">5</text>
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:160px;margin:0 auto;display:block;">
+            <defs>
+              <linearGradient id="arcG" x1="100" y1="163" x2="130" y2="30" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#5BA4F5"/>
+                <stop offset="100%" stop-color="#7FECB4"/>
+              </linearGradient>
+            </defs>
+            <!-- 아크: 중심(95,108) 반지름78, 45°→300° CW 255° 아크 -->
+            <path d="M 150.2 163.2 A 78 78 0 1 1 134 40.5"
+                  stroke="url(#arcG)" stroke-width="19" stroke-linecap="butt" fill="none"/>
+            <!-- 화살표: 300° CW 방향 (0.866, 0.5) -->
+            <polygon points="134,40.5 109.5,39 120.5,20" fill="#7FECB4"/>
+            <!-- F: 흰색, 5: 그린 -->
+            <text x="15" y="125" font-family="Arial Black,sans-serif" font-size="88" font-weight="900" fill="white">F</text>
+            <text x="90" y="125" font-family="Arial Black,sans-serif" font-size="88" font-weight="900" fill="#7FECB4">5</text>
           </svg>
         </div>
         <!-- 프로젝트 명칭 -->
