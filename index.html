@@ -99,41 +99,28 @@
     </div>
     <div class="hero-visual">
       <div class="hero-card">
-        <!-- F5 로고 v16: 실제 로고 매칭 (블루 주조 아크 + 그린 화살표) -->
+        <!-- F5 로고 v19: 새 단순 로고 기준 (녹색+파랑 두 아크, F녹색 5파랑) -->
         <div class="hero-logo-wrap">
           <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:160px;margin:0 auto;display:block;">
-            <defs>
-              <!-- 아크: 주로 블루, 끝부분만 그린 -->
-              <linearGradient id="arcG" x1="152" y1="166" x2="140" y2="36" gradientUnits="userSpaceOnUse">
-                <stop offset="0%"   stop-color="#5BA4F5"/>
-                <stop offset="75%"  stop-color="#5BA4F5"/>
-                <stop offset="100%" stop-color="#7FECB4"/>
-              </linearGradient>
-              <!-- F 텍스트: 연한 블루 -->
-              <linearGradient id="fG" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#90CAF9"/>
-                <stop offset="100%" stop-color="#5BA4F5"/>
-              </linearGradient>
-              <!-- 5 텍스트: 블루→그린 -->
-              <linearGradient id="nG" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#5BA4F5"/>
-                <stop offset="100%" stop-color="#7FECB4"/>
-              </linearGradient>
-            </defs>
             <!--
-              중심(100,106) r=80
-              시작 50°: (151.4, 167.3) → 하단 우측 (블루, 화살표 없음)
-              끝  300°: (140,   36.7)  → 상단 우측 (그린 화살표)
-              CW 250° 아크
+              중심(100,100) r=75
+              A=280°(상단, 녹색 화살표): (113, 26.1)
+              B=10°(우측, 접합부):       (173.9, 113)
+              녹색 아크: B→A CW 270° (large-arc)
+              파랑 아크: A→B CW 90°  (small-arc)
             -->
-            <path d="M 151.4 167.3 A 80 80 0 1 1 140 36.7"
-                  stroke="url(#arcG)" stroke-width="22" stroke-linecap="butt" fill="none"/>
-            <!-- 그린 화살표: 300° CW 접선 방향 (0.866, 0.5) -->
-            <polygon points="140,36.7 116.5,34.8 127.3,15.6" fill="#7FECB4"/>
-            <!-- F: 블루 그라디언트 -->
-            <text x="22" y="130" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="url(#fG)">F</text>
-            <!-- 5: 블루→그린 그라디언트 -->
-            <text x="94" y="130" font-family="Arial Black,sans-serif" font-size="80" font-weight="900" fill="url(#nG)">5</text>
+            <!-- 녹색 아크 (270° CW) -->
+            <path d="M 173.9 113 A 75 75 0 1 1 113 26.1"
+                  stroke="#4ADE80" stroke-width="24" stroke-linecap="butt" fill="none"/>
+            <!-- 파랑 아크 (90° CW) -->
+            <path d="M 113 26.1 A 75 75 0 0 1 173.9 113"
+                  stroke="#60A5FA" stroke-width="24" stroke-linecap="butt" fill="none"/>
+            <!-- 녹색 화살표 (280° CW 방향 ≈ 오른쪽+약간 아래) -->
+            <polygon points="113,26.1 91.6,32.5 95,12.7" fill="#4ADE80"/>
+            <!-- F: 녹색 -->
+            <text x="20" y="130" font-family="Arial Black,sans-serif" font-size="90" font-weight="900" fill="#4ADE80">F</text>
+            <!-- 5: 파랑 -->
+            <text x="98" y="130" font-family="Arial Black,sans-serif" font-size="90" font-weight="900" fill="#60A5FA">5</text>
           </svg>
         </div>
         <!-- 프로젝트 명칭 -->
