@@ -99,39 +99,52 @@
     </div>
     <div class="hero-visual">
       <div class="hero-card">
+        <!-- F5 로고 -->
         <div class="hero-logo-wrap">
-          <!-- F5 로고 SVG -->
-          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:160px;margin:0 auto;display:block;">
-            <circle cx="100" cy="100" r="90" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
-            <!-- 순환 화살표 -->
-            <path d="M100 30 A70 70 0 1 1 40 145" stroke="#7FECB4" stroke-width="8" stroke-linecap="round" fill="none"/>
-            <path d="M30 140 L40 155 L55 142" stroke="#7FECB4" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:150px;height:150px;margin:0 auto;display:block;">
+            <defs>
+              <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#7FECB4"/>
+                <stop offset="100%" stop-color="#5BA4F5"/>
+              </linearGradient>
+            </defs>
+            <!-- 배경 원 -->
+            <circle cx="100" cy="100" r="92" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="80" stroke="rgba(127,236,180,0.12)" stroke-width="12"/>
+            <!-- 그라디언트 아크 (새로고침 표시) -->
+            <path d="M100 22 A78 78 0 1 1 33 155" stroke="url(#arcGrad)" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <!-- 화살표 끝 -->
+            <polyline points="20,148 34,162 48,146" stroke="#7FECB4" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
             <!-- F5 텍스트 -->
-            <text x="62" y="125" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="white" opacity="0.95">F</text>
-            <text x="115" y="125" font-family="Arial Black,sans-serif" font-size="72" font-weight="900" fill="#5BA4F5">5</text>
-            <!-- 집 아이콘 -->
-            <path d="M150 170 h16 v-12 h4 l-12-12-12 12 h4v12z" fill="rgba(255,255,255,0.4)"/>
+            <text x="55" y="120" font-family="Arial Black,sans-serif" font-size="66" font-weight="900" fill="white">F</text>
+            <text x="106" y="120" font-family="Arial Black,sans-serif" font-size="66" font-weight="900" fill="#7FECB4">5</text>
           </svg>
         </div>
-        <p style="color:rgba(255,255,255,0.8);font-size:14px;font-weight:600;margin-bottom:4px;">F5 새로고침 프로젝트</p>
-        <p style="color:rgba(255,255,255,0.45);font-size:12px;">Chungnam National University ESG Center</p>
+        <!-- 프로젝트 명칭 -->
+        <div style="margin-bottom:24px;">
+          <p style="color:white;font-size:16px;font-weight:700;margin-bottom:4px;letter-spacing:0.02em;">F5 새로고침 프로젝트</p>
+          <p style="color:rgba(255,255,255,0.45);font-size:12px;letter-spacing:0.04em;">Chungnam National University ESG Center</p>
+        </div>
+        <!-- 구분선 -->
+        <div style="border-top:1px solid rgba(255,255,255,0.12);margin-bottom:20px;"></div>
+        <!-- 4대 사업 그리드 -->
         <div class="hero-stats">
-          <div class="stat-item">
+          <a href="projects.html#project1" class="stat-item">
             <div class="stat-num">Ⅰ</div>
             <div class="stat-label">주거환경 개선</div>
-          </div>
-          <div class="stat-item">
+          </a>
+          <a href="projects.html#project2" class="stat-item">
             <div class="stat-num">Ⅱ</div>
             <div class="stat-label">빈집 재생 사업</div>
-          </div>
-          <div class="stat-item">
+          </a>
+          <a href="projects.html#project3" class="stat-item">
             <div class="stat-num">Ⅲ</div>
             <div class="stat-label">의료봉사</div>
-          </div>
-          <div class="stat-item">
+          </a>
+          <a href="recycle-art.html" class="stat-item">
             <div class="stat-num">∞</div>
             <div class="stat-label">지속 가능 협력</div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
