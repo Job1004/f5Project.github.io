@@ -99,25 +99,20 @@
     </div>
     <div class="hero-visual">
       <div class="hero-card">
-        <!-- F5 로고 -->
+        <!-- F5 로고 (공식 로고 스타일: 그린+블루 원형 화살표) -->
         <div class="hero-logo-wrap">
-          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:150px;height:150px;margin:0 auto;display:block;">
-            <defs>
-              <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#7FECB4"/>
-                <stop offset="100%" stop-color="#5BA4F5"/>
-              </linearGradient>
-            </defs>
-            <!-- 배경 원 -->
-            <circle cx="100" cy="100" r="92" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-            <circle cx="100" cy="100" r="80" stroke="rgba(127,236,180,0.12)" stroke-width="12"/>
-            <!-- 그라디언트 아크 (새로고침 표시) -->
-            <path d="M100 22 A78 78 0 1 1 33 155" stroke="url(#arcGrad)" stroke-width="7" stroke-linecap="round" fill="none"/>
-            <!-- 화살표 끝 -->
-            <polyline points="20,148 34,162 48,146" stroke="#7FECB4" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-            <!-- F5 텍스트 -->
-            <text x="55" y="120" font-family="Arial Black,sans-serif" font-size="66" font-weight="900" fill="white">F</text>
-            <text x="106" y="120" font-family="Arial Black,sans-serif" font-size="66" font-weight="900" fill="#7FECB4">5</text>
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:156px;height:156px;margin:0 auto;display:block;">
+            <!-- 그린 아크 (270°): 오른쪽 아래→하단→왼쪽→상단 (CW) -->
+            <path d="M 170.9 112.5 A 72 72 0 1 1 112.5 29.1"
+                  stroke="#7FECB4" stroke-width="23" stroke-linecap="butt" fill="none"/>
+            <!-- 블루 아크 (90°): 상단→오른쪽 위→오른쪽 (CW) -->
+            <path d="M 112.5 29.1 A 72 72 0 0 1 170.9 112.5"
+                  stroke="#5BA4F5" stroke-width="23" stroke-linecap="butt" fill="none"/>
+            <!-- 화살표 (그린 아크 끝, 오른쪽+약간 아래 방향) -->
+            <polygon points="112.5,29.1 89.1,35.1 92.5,15.4" fill="#7FECB4"/>
+            <!-- F: 그린, 5: 블루 -->
+            <text x="48" y="118" font-family="Arial Black,sans-serif" font-size="62" font-weight="900" fill="white">F</text>
+            <text x="101" y="118" font-family="Arial Black,sans-serif" font-size="62" font-weight="900" fill="#7FECB4">5</text>
           </svg>
         </div>
         <!-- 프로젝트 명칭 -->
